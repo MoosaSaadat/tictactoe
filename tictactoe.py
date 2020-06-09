@@ -55,7 +55,7 @@ def result(board, action):
         raise ValueError
 
     # Make a deep copy
-    newBoard = board.copy()
+    newBoard = [[val for val in row] for row in board]
 
     # Add player sign
     newBoard[actionX][actionY] = player(newBoard)
@@ -132,4 +132,27 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
+    if terminal(board):
+        return None
+
+    # Get available actions
+    currActions = actions(board)
+
+    # Store solution for each action
+    solution = []
+
+    # Get results for each action
+    for action in currActions:
+
+        # Get resulting board for this action
+        res = result(board, action)
+
+        # Check end of game
+        if winner(res) or terminal(res):
+            return utility(res)
+
+        # Save solution of this action
+        solution.append(minimax(res))
+
+    # Return action which gives best result
+    return currActions[solution.index(min(solution))]
