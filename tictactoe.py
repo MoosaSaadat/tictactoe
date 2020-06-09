@@ -47,7 +47,19 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    raise NotImplementedError
+    actionX, actionY = action
+    
+    # Invalid action
+    if actionX < 0 or actionX > 2 or actionY < 0 or actionY > 2:
+        raise ValueError
+
+    # Make a deep copy
+    newBoard = board.copy()
+
+    # Add player sign
+    newBoard[actionX][actionY] = player(newBoard)
+
+    return newBoard
 
 
 def winner(board):
