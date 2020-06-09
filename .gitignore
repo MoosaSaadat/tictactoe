@@ -1,0 +1,3 @@
+#Exclude env and font file
+env/
+OpenSans-Regular.ttf
