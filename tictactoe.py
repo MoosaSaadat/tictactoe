@@ -97,7 +97,22 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
+    # Winner Found
+    if winner(board):
+        return True
+
+    emptyPositions = [
+        EMPTY
+        for j in range(len(board))
+        for i in range(len(board))
+        if board[i][j] == EMPTY
+    ]
+    # In progress
+    if len(emptyPositions):
+        return False
+
+    # Tie
+    return True
 
 
 def utility(board):
