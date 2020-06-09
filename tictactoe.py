@@ -14,6 +14,7 @@ def initial_state():
     Returns starting state of the board.
     """
     return [[EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY]]
+    # return [[X, O, EMPTY], [EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY]]
 
 
 def player(board):
@@ -128,31 +129,40 @@ def utility(board):
         return 0
 
 
+def minimax_helper(board):
+    # Return if terminal
+    if terminal(board):
+        return None
+
+    # Actions currently available
+    currActions = actions(board)
+
+    # Store solutions
+    solutions = []
+
+    # Check all actions for best result
+    for action in currActions:
+
+        # Perform this action
+        res = result(board, action)
+
+        # Check if game has ended
+        if winner(res) or terminal(res):
+            return (utility(res), action)
+
+        solutions.append((minimax_helper(res)[0], action))
+
+    # Return the best solution
+    if len(actions(board)) >= 6:
+        print(board)
+        print(f"sol: {solutions}")
+    return min(solutions)
+
+
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    if terminal(board):
-        return None
-
-    # Get available actions
-    currActions = actions(board)
-
-    # Store solution for each action
-    solution = []
-
-    # Get results for each action
-    for action in currActions:
-
-        # Get resulting board for this action
-        res = result(board, action)
-
-        # Check end of game
-        if winner(res) or terminal(res):
-            return utility(res)
-
-        # Save solution of this action
-        solution.append(minimax(res))
-
-    # Return action which gives best result
-    return currActions[solution.index(min(solution))]
+    finalSolution = minimax_helper(board)
+    print(finalSolution)
+    return finalSolution[1]
