@@ -13,9 +13,7 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    return [[EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY]]
+    return [[EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY]]
 
 
 def player(board):
@@ -38,9 +36,12 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    return [(i, j) for j in range(len(board))
-            for i in range(len(board)) if board[i][j] == EMPTY
-        ]
+    return [
+        (i, j)
+        for j in range(len(board))
+        for i in range(len(board))
+        if board[i][j] == EMPTY
+    ]
 
 
 def result(board, action):
@@ -48,7 +49,7 @@ def result(board, action):
     Returns the board that results from making move (i, j) on the board.
     """
     actionX, actionY = action
-    
+
     # Invalid action
     if actionX < 0 or actionX > 2 or actionY < 0 or actionY > 2:
         raise ValueError
@@ -66,7 +67,30 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+    # Check Rows
+    for row in board:
+        res = set(row)
+        # Winner found
+        if len(res) == 1:
+            return res.pop()
+
+    # Check Columns
+    for col in range(len(board)):
+        res = {board[0][col], board[1][col], board[2][col]}
+        # Winner found
+        if len(res) == 1:
+            return res.pop()
+
+    # Check both diagonals
+    mainDiagonal = {board[0][0], board[1][1], board[2][2]}
+    if len(mainDiagonal) == 1:
+        return mainDiagonal.pop()
+    antiDiagonal = {board[2][0], board[1][1], board[0][2]}
+    if len(antiDiagonal) == 1:
+        return antiDiagonal.pop()
+
+    # No winner
+    return None
 
 
 def terminal(board):
