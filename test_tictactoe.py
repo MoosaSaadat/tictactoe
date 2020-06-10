@@ -75,6 +75,47 @@ class TestTicTacToe(unittest.TestCase):
             ],
         )
 
+    def test_winner(self):
+        board = [
+            [tictactoe.X, tictactoe.O, tictactoe.EMPTY],
+            [tictactoe.O, tictactoe.O, tictactoe.X],
+            [tictactoe.X, tictactoe.X, tictactoe.EMPTY],
+        ]
+        result = tictactoe.winner(board)
+        self.assertIsNone(result)
+
+        board = [
+            [tictactoe.X, tictactoe.O, tictactoe.EMPTY],
+            [tictactoe.O, tictactoe.O, tictactoe.X],
+            [tictactoe.X, tictactoe.O, tictactoe.X],
+        ]
+        result = tictactoe.winner(board)
+        self.assertEqual(result, tictactoe.O)
+
+        board = [
+            [tictactoe.X, tictactoe.O, tictactoe.O],
+            [tictactoe.O, tictactoe.O, tictactoe.X],
+            [tictactoe.X, tictactoe.X, tictactoe.X],
+        ]
+        result = tictactoe.winner(board)
+        self.assertEqual(result, tictactoe.X)
+
+        board = [
+            [tictactoe.X, tictactoe.O, tictactoe.O],
+            [tictactoe.X, tictactoe.X, tictactoe.EMPTY],
+            [tictactoe.O, tictactoe.EMPTY, tictactoe.X],
+        ]
+        result = tictactoe.winner(board)
+        self.assertEqual(result, tictactoe.X)
+
+        board = [
+            [tictactoe.X, tictactoe.O, tictactoe.O],
+            [tictactoe.X, tictactoe.O, tictactoe.EMPTY],
+            [tictactoe.O, tictactoe.X, tictactoe.X],
+        ]
+        result = tictactoe.winner(board)
+        self.assertEqual(result, tictactoe.O)
+
 
 if __name__ == "__main__":
     unittest.main()
