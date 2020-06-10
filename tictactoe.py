@@ -14,7 +14,6 @@ def initial_state():
     Returns starting state of the board.
     """
     return [[EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY]]
-    # return [[EMPTY, X, O], [O, X, X], [X, EMPTY, O]]
 
 
 def player(board):
@@ -129,46 +128,14 @@ def utility(board):
         return 0
 
 
-def minimax_helper(board, isMin):
-    # Return if terminal
-    if terminal(board):
-        return None
-
-    # Actions currently available
-    currActions = actions(board)
-
-    # Store solutions
-    solutions = []
-
-    # Check all actions for best result
-    for action in currActions:
-
-        # Perform this action
-        res = result(board, action)
-
-        # Check if game has ended
-        if winner(res) or terminal(res):
-            return (utility(res), action)
-
-        solutions.append((minimax_helper(res, not isMin)[0], action))
-
-    # Return the best solution
-    if not isMin:
-        return max(solutions)
-    return min(solutions)
-
-
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    # finalSolution = minimax_helper(board, True)
     if player(board) == X:
         finalSolution = maxValue(board)
     else:
         finalSolution = minValue(board)
-    print(finalSolution)
-    # return finalSolution[1]
     return finalSolution[1]
 
 
@@ -177,13 +144,17 @@ def minValue(board):
         return (utility(board), (0, 0))
 
     v = float("inf")
-
     actionPos = []
     for action in actions(board):
+
         newVal = maxValue(result(board, action))[0]
+
+        # Replace if lower value found
         if newVal < v:
             v = newVal
             actionPos = action
+
+        # Prune after finding lowest value
         if newVal == -1:
             break
     return (v, actionPos)
@@ -194,13 +165,17 @@ def maxValue(board):
         return (utility(board), (0, 0))
 
     v = float("-inf")
-
     actionPos = []
     for action in actions(board):
+
         newVal = minValue(result(board, action))[0]
+
+        # Replace if higher value found
         if newVal > v:
             v = newVal
             actionPos = action
+
+        # Prune after finding highest value
         if newVal == 1:
             break
     return (v, actionPos)
