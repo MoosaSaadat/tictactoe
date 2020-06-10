@@ -1,3 +1,4 @@
 #Exclude directories and font file
 */
+!assets/
 OpenSans-Regular.ttf
