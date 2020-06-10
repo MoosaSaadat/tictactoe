@@ -27,11 +27,11 @@ class TestTicTacToe(unittest.TestCase):
             [tictactoe.X, tictactoe.EMPTY, tictactoe.EMPTY],
         ]
         result = tictactoe.actions(board)
-        self.assertEqual(result, [(2, 1), (0, 2), (2, 2)])
+        self.assertEqual(result, [(0, 2), (2, 1), (2, 2)])
 
         board[2][2] = tictactoe.X
         result = tictactoe.actions(board)
-        self.assertEqual(result, [(2, 1), (0, 2)])
+        self.assertEqual(result, [(0, 2), (2, 1)])
 
         board[0][2] = tictactoe.O
         result = tictactoe.actions(board)

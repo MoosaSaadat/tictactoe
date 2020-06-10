@@ -39,8 +39,8 @@ def actions(board):
     """
     return [
         (i, j)
-        for j in range(len(board))
         for i in range(len(board))
+        for j in range(len(board))
         if board[i][j] == EMPTY
     ]
 
