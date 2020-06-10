@@ -9,13 +9,17 @@ class TestTicTacToe(unittest.TestCase):
             [tictactoe.EMPTY, tictactoe.EMPTY, tictactoe.EMPTY],
             [tictactoe.EMPTY, tictactoe.EMPTY, tictactoe.EMPTY],
         ]
+
+        # Check first player
         result = tictactoe.player(board)
         self.assertEqual(result, tictactoe.X)
 
+        # Check second player
         board[0][0] = tictactoe.X
         result = tictactoe.player(board)
         self.assertEqual(result, tictactoe.O)
 
+        # Check third player
         board[0][1] = tictactoe.O
         result = tictactoe.player(board)
         self.assertEqual(result, tictactoe.X)
@@ -26,13 +30,17 @@ class TestTicTacToe(unittest.TestCase):
             [tictactoe.O, tictactoe.O, tictactoe.X],
             [tictactoe.X, tictactoe.EMPTY, tictactoe.EMPTY],
         ]
+
+        # Check three actions
         result = tictactoe.actions(board)
         self.assertEqual(result, [(0, 2), (2, 1), (2, 2)])
 
+        # Check two actions
         board[2][2] = tictactoe.X
         result = tictactoe.actions(board)
         self.assertEqual(result, [(0, 2), (2, 1)])
 
+        # Check one actions
         board[0][2] = tictactoe.O
         result = tictactoe.actions(board)
         self.assertEqual(result, [(2, 1)])
@@ -43,6 +51,8 @@ class TestTicTacToe(unittest.TestCase):
             [tictactoe.O, tictactoe.O, tictactoe.X],
             [tictactoe.X, tictactoe.EMPTY, tictactoe.EMPTY],
         ]
+
+        # Check first move
         result = tictactoe.result(board, (0, 2))
         self.assertEqual(
             result,
@@ -53,6 +63,7 @@ class TestTicTacToe(unittest.TestCase):
             ],
         )
 
+        # Check second move
         board[0][2] = tictactoe.X
         result = tictactoe.result(board, (2, 1))
         self.assertEqual(
@@ -64,6 +75,7 @@ class TestTicTacToe(unittest.TestCase):
             ],
         )
 
+        # Check third move
         board[2][1] = tictactoe.O
         result = tictactoe.result(board, (2, 2))
         self.assertEqual(
@@ -76,6 +88,7 @@ class TestTicTacToe(unittest.TestCase):
         )
 
     def test_winner(self):
+        # Check no winner
         board = [
             [tictactoe.X, tictactoe.O, tictactoe.EMPTY],
             [tictactoe.O, tictactoe.O, tictactoe.X],
@@ -84,6 +97,7 @@ class TestTicTacToe(unittest.TestCase):
         result = tictactoe.winner(board)
         self.assertIsNone(result)
 
+        # Check vertical match
         board = [
             [tictactoe.X, tictactoe.O, tictactoe.EMPTY],
             [tictactoe.O, tictactoe.O, tictactoe.X],
@@ -92,6 +106,7 @@ class TestTicTacToe(unittest.TestCase):
         result = tictactoe.winner(board)
         self.assertEqual(result, tictactoe.O)
 
+        # Check horizontal match
         board = [
             [tictactoe.X, tictactoe.O, tictactoe.O],
             [tictactoe.O, tictactoe.O, tictactoe.X],
@@ -100,6 +115,7 @@ class TestTicTacToe(unittest.TestCase):
         result = tictactoe.winner(board)
         self.assertEqual(result, tictactoe.X)
 
+        # Check main diagonal match
         board = [
             [tictactoe.X, tictactoe.O, tictactoe.O],
             [tictactoe.X, tictactoe.X, tictactoe.EMPTY],
@@ -108,6 +124,7 @@ class TestTicTacToe(unittest.TestCase):
         result = tictactoe.winner(board)
         self.assertEqual(result, tictactoe.X)
 
+        # Check anti diagonal match
         board = [
             [tictactoe.X, tictactoe.O, tictactoe.O],
             [tictactoe.X, tictactoe.O, tictactoe.EMPTY],
