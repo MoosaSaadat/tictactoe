@@ -117,32 +117,54 @@ class TestTicTacToe(unittest.TestCase):
         self.assertEqual(result, tictactoe.O)
 
     def test_terminal(self):
+        # Game not finished
         board = [
             [tictactoe.EMPTY, tictactoe.EMPTY, tictactoe.EMPTY],
             [tictactoe.EMPTY, tictactoe.EMPTY, tictactoe.EMPTY],
             [tictactoe.EMPTY, tictactoe.EMPTY, tictactoe.EMPTY],
         ]
-
-        # Game not finished
         self.assertFalse(tictactoe.terminal(board))
 
+        # Game has a winner
         board = [
             [tictactoe.X, tictactoe.EMPTY, tictactoe.EMPTY],
             [tictactoe.O, tictactoe.X, tictactoe.O],
             [tictactoe.EMPTY, tictactoe.EMPTY, tictactoe.X],
         ]
-
-        # Game has a winner
         self.assertTrue(tictactoe.terminal(board))
 
+        # Game is a tie
         board = [
             [tictactoe.X, tictactoe.O, tictactoe.O],
             [tictactoe.O, tictactoe.X, tictactoe.X],
             [tictactoe.X, tictactoe.X, tictactoe.O],
         ]
-
-        # Game is a tie
         self.assertTrue(tictactoe.terminal(board))
+
+    def test_utility(self):
+        # Game is a tie
+        board = [
+            [tictactoe.X, tictactoe.O, tictactoe.O],
+            [tictactoe.O, tictactoe.X, tictactoe.X],
+            [tictactoe.X, tictactoe.X, tictactoe.O],
+        ]
+        self.assertEqual(tictactoe.utility(board), 0)
+
+        # X has won
+        board = [
+            [tictactoe.X, tictactoe.EMPTY, tictactoe.EMPTY],
+            [tictactoe.O, tictactoe.X, tictactoe.O],
+            [tictactoe.EMPTY, tictactoe.EMPTY, tictactoe.X],
+        ]
+        self.assertEqual(tictactoe.utility(board), 1)
+
+        # O has won
+        board = [
+            [tictactoe.X, tictactoe.EMPTY, tictactoe.EMPTY],
+            [tictactoe.O, tictactoe.O, tictactoe.O],
+            [tictactoe.X, tictactoe.EMPTY, tictactoe.X],
+        ]
+        self.assertEqual(tictactoe.utility(board), -1)
 
 
 if __name__ == "__main__":
