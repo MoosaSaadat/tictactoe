@@ -8,6 +8,11 @@ In this project, we're implementing an **Artificial Intelligence** bot that play
 **Alpha-beta pruning** is also implemented to optimize the algorithm: `minValue()` and `maxValue()` return the `action` as soon as they find a solution with `utility` of  `-1` and `1` respectively.
 
 ## Screenshots
+<p align="center" style="font-size:12px;color:dimgray;">Gameplay <strong>(GIF - 42 seconds)</strong></p>
+<p align="center">
+    <img src="assets/gameplay.gif" alt="Gameplay"/>
+</p>
+<hr>
 <p align="center" style="font-size:12px;color:dimgray">Main Menu</p>
 <p align="center">
     <img src="assets/main-menu.png" alt="Main Menu"/>
